@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.10]
+
+- Released @ 12/2025 (UTC)
+- Add an UNCHANGED StringCaseType
+
 ## [0.2.9]
 
 - Released @ 6/2025 (UTC)

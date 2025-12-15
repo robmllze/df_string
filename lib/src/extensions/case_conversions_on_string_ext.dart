@@ -36,7 +36,8 @@ extension CaseConversionsOnStringExt on String {
 
   /// Converts the string to Capitalized-Kebab-Case.
   /// Example: 'helloWorld' -> 'Hello-World'
-  String toCapitalizedKebabCase() => _extractComponents().map((e) => e.capitalize()).join('-');
+  String toCapitalizedKebabCase() =>
+      _extractComponents().map((e) => e.capitalize()).join('-');
 
   /// Converts the string to dot.case.
   String toDotCase() => _extractComponents().join('.');
@@ -51,7 +52,8 @@ extension CaseConversionsOnStringExt on String {
 
   /// Converts the string to path/case.
   /// Example: 'helloWorld' -> 'hello/world'
-  String toPathCase([String separator = '/']) => _extractComponents().join(separator);
+  String toPathCase([String separator = '/']) =>
+      _extractComponents().join(separator);
 
   /// Converts the string to camelCase.
   /// Example: 'Hello World' -> 'helloWorld'
@@ -59,7 +61,8 @@ extension CaseConversionsOnStringExt on String {
 
   /// Converts the string to PascalCase.
   /// Example: 'hello world' -> 'HelloWorld'
-  String toPascalCase() => _extractComponents().map((e) => e.capitalize()).join();
+  String toPascalCase() =>
+      _extractComponents().map((e) => e.capitalize()).join();
 
   /// Robustly extracts word components from a string and returns them in lowercase.
   List<String> _extractComponents() {

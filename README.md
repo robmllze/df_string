@@ -1,7 +1,7 @@
-[![banner](https://github.com/dev-cetera/df_string/blob/v0.2.9/doc/assets/banner.png?raw=true)](https://github.com/dev-cetera)
+[![banner](https://github.com/dev-cetera/df_string/blob/v0.2.10/doc/assets/banner.png?raw=true)](https://github.com/dev-cetera)
 
 [![pub](https://img.shields.io/pub/v/df_string.svg)](https://pub.dev/packages/df_string)
-[![tag](https://img.shields.io/badge/Tag-v0.2.9-purple?logo=github)](https://github.com/dev-cetera/df_string/tree/v0.2.9)
+[![tag](https://img.shields.io/badge/Tag-v0.2.10-purple?logo=github)](https://github.com/dev-cetera/df_string/tree/v0.2.10)
 [![buymeacoffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/dev_cetera)
 [![sponsor](https://img.shields.io/badge/Sponsor-grey?logo=github-sponsors&logoColor=pink)](https://github.com/sponsors/dev-cetera)
 [![patreon](https://img.shields.io/badge/Patreon-grey?logo=patreon)](https://www.patreon.com/t0mb3rr)
@@ -61,4 +61,3 @@ If you're enjoying this package and find it valuable, consider showing your appr
 ## LICENSE
 
 This project is released under the [MIT License](https://raw.githubusercontent.com/dev-cetera/df_string/main/LICENSE). See [LICENSE](https://raw.githubusercontent.com/dev-cetera/df_string/main/LICENSE) for more information.
-
