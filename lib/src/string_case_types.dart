@@ -21,6 +21,7 @@ enum StringCaseType {
   //
   //
 
+  UNCHANGED(_UNCHANGED),
   LOWER_SNAKE_CASE(_LOWER_SNAKE_CASE),
   UPPER_SNAKE_CASE(_UPPER_SNAKE_CASE),
   LOWER_KEBAB_CASE(_LOWER_KEBAB_CASE),
@@ -46,6 +47,10 @@ enum StringCaseType {
 }
 
 // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+/// A key representing an unchanged string.
+/// This is used when no conversion is needed.
+const UNCHANGED = 'UNCHANGED';
 
 /// A key representing camel case.
 const CAMEL_CASE = 'CAMEL_CASE';
@@ -77,6 +82,7 @@ const UPPER_KEBAB_CASE = 'UPPER_KEBAB_CASE';
 /// A key representing upper snake case.
 const UPPER_SNAKE_CASE = 'UPPER_SNAKE_CASE';
 
+const _UNCHANGED = UNCHANGED;
 const _CAMEL_CASE = CAMEL_CASE;
 const _LOWER_DOT_CASE = LOWER_DOT_CASE;
 const _LOWER_KEBAB_CASE = LOWER_KEBAB_CASE;
@@ -93,6 +99,8 @@ const _UPPER_SNAKE_CASE = UPPER_SNAKE_CASE;
 /// Converts a string to a specific case type.
 String convertToStringCaseType(String value, StringCaseType? stringCaseType) {
   switch (stringCaseType) {
+    case StringCaseType.UNCHANGED:
+      return value; // No conversion needed, return the original value.
     case StringCaseType.LOWER_SNAKE_CASE:
       return value.toLowerSnakeCase();
     case StringCaseType.UPPER_SNAKE_CASE:
