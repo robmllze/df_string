@@ -17,13 +17,28 @@ extension StringExt1 on String {
     return isEmpty ? null : this;
   }
 
-  /// Truncates the string to the given [length]. Specify [ellipsis] to append
-  /// to he truncated string if it is shorter than [length], e.g.
-  /// 'Hello World'.truncToLength(5, ellipsis: '...') => 'Hello...'.
+  /// Truncates the string to the given [length], trimming trailing whitespace
+  /// that may be exposed by the cut, and appending [ellipsis] if and only if
+  /// the string was actually truncated.
+  ///
+  /// - Returns the original string unchanged when its length is `<= length`.
+  /// - When truncated, the returned core (before [ellipsis]) is at most
+  ///   [length] characters; [ellipsis] is appended on top of that budget.
+  /// - [length] must be `>= 0`. Negative values throw [RangeError].
+  ///
+  /// Examples:
+  /// ```dart
+  /// 'Hello World'.truncToLength(5, ellipsis: '...'); // 'Hello...'
+  /// 'Hello World'.truncToLength(6, ellipsis: '...'); // 'Hello...' (trailing space trimmed)
+  /// 'Hello'.truncToLength(10, ellipsis: '...');      // 'Hello' (no truncation)
+  /// ''.truncToLength(5, ellipsis: '...');            // '' (no truncation)
+  /// ```
   String truncToLength(int length, {String ellipsis = ''}) {
-    final temp = (this.length > length ? substring(0, length).trim() : this);
-    if (temp.length < length) return temp + ellipsis;
-    return temp;
+    if (length < 0) {
+      throw RangeError.range(length, 0, null, 'length');
+    }
+    if (this.length <= length) return this;
+    return substring(0, length).trimRight() + ellipsis;
   }
 
   /// Replaces all whitespace characters with [replace].

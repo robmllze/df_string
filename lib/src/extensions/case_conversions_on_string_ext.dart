@@ -95,10 +95,18 @@ extension CaseConversionsOnStringExt on String {
         .toList();
   }
 
-  /// Returns `true` if the string contains only uppercase letters.
+  /// Returns `true` if the string is identical to its uppercase form.
+  ///
+  /// Note that strings without any cased letters (empty, digit-only,
+  /// punctuation-only, etc.) trivially equal their uppercase form and
+  /// therefore also return `true`.
   bool get isUpperCase => this == toUpperCase();
 
-  /// Returns `true` if the string contains only lowercase letters.
+  /// Returns `true` if the string is identical to its lowercase form.
+  ///
+  /// Note that strings without any cased letters (empty, digit-only,
+  /// punctuation-only, etc.) trivially equal their lowercase form and
+  /// therefore also return `true`.
   bool get isLowerCase => this == toLowerCase();
 
   /// Capitalizes the first letter of the string.

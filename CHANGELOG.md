@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.0]
+
+- Released @ 5/2026 (UTC)
+- fix: `truncToLength` now appends `ellipsis` only when truncation actually occurs, returns short inputs unchanged, preserves leading whitespace (only trailing whitespace exposed by the cut is trimmed), and throws `RangeError` on negative `length`
+- fix: `forceObjToString` is guaranteed not to throw even when both `toString` and `hashCode` misbehave; falls back to `'<unrepresentable object>'` in that case
+
 ## [0.2.10]
 
 - Released @ 12/2025 (UTC)

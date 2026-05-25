@@ -12,17 +12,28 @@
 //.title~
 
 /// Converts an object to a string, returning a fallback representation if
-/// the object's `toString()` method throws an exception.
+/// the object's `toString()` method throws.
 ///
-/// This is a defensive utility, primarily for logging and debugging, to prevent
-/// a misbehaving object from crashing the application.
-/// In debug mode, it triggers an assertion to notify the developer of the
-/// issue.
+/// This is a defensive utility, primarily for logging and debugging, to keep
+/// a misbehaving object from crashing the application. It is guaranteed to
+/// never throw — even if `toString`, `runtimeType`, and `hashCode` all
+/// misbehave — and is safe to call from logging code on the critical path.
+///
+/// For `null`, returns the literal `'null'` (Dart's default `Object?.toString`
+/// behaviour for null).
+///
+/// The fallback when `toString` throws is `'<RuntimeType>@<hex-hashcode>'`.
+/// If even that path throws, the final fallback is the literal string
+/// `'<unrepresentable object>'`.
 String forceObjToString(Object? obj) {
   try {
     return obj.toString();
-  } catch (e) {
-    return '${obj.runtimeType}@${obj.hashCode.toRadixString(16)}';
+  } catch (_) {
+    try {
+      return '${obj.runtimeType}@${obj.hashCode.toRadixString(16)}';
+    } catch (_) {
+      return '<unrepresentable object>';
+    }
   }
 }
 
