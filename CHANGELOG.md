@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.0]
+
+- Released @ 8/2026 (UTC)
+- fix: case conversions (`toSnakeCase`, `toKebabCase`, `toDotCase`, `toCamelCase`, `toPascalCase`, `toPathCase`, and their variants) no longer split at letter↔digit boundaries — digits now stay attached to the letter run they touch, matching the Rails `underscore` convention. `phoneE164` → `phone_e164` (was `phone_e_164`), `line1` → `line1` (was `line_1`), `version1` → `version1` (was `version_1`). A digit immediately before an uppercase letter is still a word boundary (`foo1Bar` → `foo1_bar`), so camel/snake round-trips stay stable. This keeps generated wire keys aligned with database columns that embed digits. **Behavioural change:** consumers that relied on the old digit-splitting output will see different results.
+
 ## [0.3.0]
 
 - Released @ 5/2026 (UTC)

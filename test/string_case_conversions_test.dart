@@ -20,12 +20,13 @@ void main() {
       'performHTTPRequest': ['perform', 'http', 'request'],
       'theHTTPRequestID': ['the', 'http', 'request', 'id'],
       'HTMLParser': ['html', 'parser'],
-      // Numbers
-      'version1': ['version', '1'],
-      'version1_2': ['version', '1', '2'],
-      'version1.2.3': ['version', '1', '2', '3'],
-      'v1': ['v', '1'],
-      'player1_score': ['player', '1', 'score'],
+      // Numbers — digits stay attached to their letter run (Rails
+      // `underscore` convention); delimiters and camel boundaries still split.
+      'version1': ['version1'],
+      'version1_2': ['version1', '2'],
+      'version1.2.3': ['version1', '2', '3'],
+      'v1': ['v1'],
+      'player1_score': ['player1', 'score'],
       // Edge cases
       'hello': ['hello'],
       'HELLO': ['hello'],
@@ -101,8 +102,8 @@ void main() {
         'hello world': 'hello_world',
         'HelloWorld': 'hello_world',
         'HTTPRequest': 'http_request',
-        'version1.2.3': 'version_1_2_3',
-        'player1_score': 'player_1_score',
+        'version1.2.3': 'version1_2_3',
+        'player1_score': 'player1_score',
         '': '',
       };
       testCases.forEach((input, expected) {
@@ -121,8 +122,8 @@ void main() {
         'hello world': 'hello-world',
         'HelloWorld': 'hello-world',
         'HTTPRequest': 'http-request',
-        'version1.2.3': 'version-1-2-3',
-        'player1_score': 'player-1-score',
+        'version1.2.3': 'version1-2-3',
+        'player1_score': 'player1-score',
         '': '',
       };
       testCases.forEach((input, expected) {
@@ -134,7 +135,7 @@ void main() {
           expect(input.toUpperKebabCase(), equals(expected.toUpperCase()));
         });
         test('should convert "$input" to Capitalized-Kebab-Case', () {
-          final capitalized = 'Player-1-Score'; // Manual expected for this case
+          final capitalized = 'Player1-Score'; // Manual expected for this case
           expect('player1_score'.toCapitalizedKebabCase(), equals(capitalized));
         });
       });
@@ -145,8 +146,8 @@ void main() {
         'hello world': 'hello.world',
         'HelloWorld': 'hello.world',
         'HTTPRequest': 'http.request',
-        'version1.2.3': 'version.1.2.3',
-        'player1_score': 'player.1.score',
+        'version1.2.3': 'version1.2.3',
+        'player1_score': 'player1.score',
         '': '',
       };
       testCases.forEach((input, expected) {
@@ -167,7 +168,7 @@ void main() {
       });
       test('should convert with custom separator', () {
         expect('helloWorld'.toPathCase('\\'), equals('hello\\world'));
-        expect('version1'.toPathCase('---'), equals('version---1'));
+        expect('version1'.toPathCase('---'), equals('version1'));
       });
     });
 

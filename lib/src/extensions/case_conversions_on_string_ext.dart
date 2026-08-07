@@ -64,33 +64,44 @@ extension CaseConversionsOnStringExt on String {
   String toPascalCase() =>
       _extractComponents().map((e) => e.capitalize()).join();
 
-  /// Robustly extracts word components from a string and returns them in lowercase.
+  /// Robustly extracts word components from a string and returns them in
+  /// lowercase.
+  ///
+  /// Components split on delimiters (`_`, `-`, `.`, spaces, and any other run
+  /// of non-alphanumeric characters) and on camelCase / PascalCase boundaries.
+  /// Digits stay attached to the letter run they touch rather than becoming
+  /// their own component: `phoneE164` -> `[phone, e164]`, `line1` -> `[line1]`,
+  /// `version1` -> `[version1]` — never `[phone, e, 164]` / `[line, 1]`. A
+  /// digit followed by an uppercase letter is still a word boundary, so
+  /// `foo1Bar` -> `[foo1, bar]` and camel/snake round-trips stay stable.
+  ///
+  /// This mirrors the Rails `underscore` convention and keeps generated wire
+  /// keys aligned with database column names that embed digits (e.g.
+  /// `phone_e164`, `line1`, `sha256`, `oauth2`).
   List<String> _extractComponents() {
     if (trim().isEmpty) return []; // Return empty list for empty input
     return trim()
-        // 1. Add a space before an uppercase letter followed by a lowercase one. (e.g., 'HelloWorld' -> 'Hello World')
-        .replaceAllMapped(RegExp(r'([a-z])([A-Z])'), (m) => '${m[1]} ${m[2]}')
-        // 2. Add a space before an uppercase letter that is followed by a lowercase letter,
-        //    effectively splitting acronyms. (e.g., 'HTTPRequest' -> 'HTTP Request')
+        // 1. Add a space before an uppercase letter that follows a lowercase
+        //    letter or a digit. (e.g., 'HelloWorld' -> 'Hello World',
+        //    'foo1Bar' -> 'foo1 Bar')
+        .replaceAllMapped(
+          RegExp(r'([a-z0-9])([A-Z])'),
+          (m) => '${m[1]} ${m[2]}',
+        )
+        // 2. Add a space before an uppercase letter that is followed by a
+        //    lowercase letter, effectively splitting acronyms.
+        //    (e.g., 'HTTPRequest' -> 'HTTP Request')
         .replaceAllMapped(
           RegExp(r'([A-Z])([A-Z][a-z])'),
           (m) => '${m[1]} ${m[2]}',
         )
-        // 3. Add a space between letters and numbers. (e.g., 'version1' -> 'version 1')
-        .replaceAllMapped(
-          RegExp(r'([a-zA-Z])([0-9])'),
-          (m) => '${m[1]} ${m[2]}',
-        )
-        .replaceAllMapped(
-          RegExp(r'([0-9])([a-zA-Z])'),
-          (m) => '${m[1]} ${m[2]}',
-        )
-        // 4. Replace any non-alphanumeric characters with a space. (e.g., 'hello_world-123' -> 'hello world 123')
+        // 3. Replace any non-alphanumeric characters with a space.
+        //    (e.g., 'hello_world-123' -> 'hello world 123')
         .replaceAll(RegExp(r'[^a-zA-Z0-9]+'), ' ')
-        // 5. Split by spaces and filter out any empty strings.
+        // 4. Split by spaces and filter out any empty strings.
         .split(' ')
         .where((s) => s.isNotEmpty)
-        // 6. Convert all components to lowercase.
+        // 5. Convert all components to lowercase.
         .map((s) => s.toLowerCase())
         .toList();
   }
